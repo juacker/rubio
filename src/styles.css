@@ -207,8 +207,90 @@ h3 {
   accent-color: var(--brand);
 }
 
+.op-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.op-row .toggle {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+}
+
+.toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-track {
+  flex-shrink: 0;
+  width: 2.2rem;
+  height: 1.25rem;
+  border-radius: 1rem;
+  background: var(--line);
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.25rem - 4px);
+  height: calc(1.25rem - 4px);
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.toggle input:checked + .toggle-track {
+  background: var(--brand);
+}
+
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(calc(2.2rem - 1.25rem));
+}
+
+.toggle-label {
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+
+.op-count {
+  width: 2.8rem;
+  flex-shrink: 0;
+  padding: 0.28rem 0.2rem;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.op-count::-webkit-inner-spin-button,
+.op-count::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.op-count:disabled {
+  opacity: 0.3;
+}
+
 .settings-panel select,
-.settings-panel input[type='number'] {
+.settings-panel input[type='number']:not(.op-count) {
   width: 100%;
   margin: 0.35rem 0 1rem;
   padding: 0.62rem 0.74rem;

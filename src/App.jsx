@@ -107,7 +107,7 @@ function divWorkLines(exercise) {
 function App() {
   const [operations, setOperations] = useState(['add', 'sub', 'mul', 'div']);
   const [difficulty, setDifficulty] = useState('medium');
-  const [count, setCount] = useState(10);
+  const [counts, setCounts] = useState({ add: 3, sub: 3, mul: 2, div: 2 });
   const [exercises, setExercises] = useState([]);
   const [answers, setAnswers] = useState({});
   const [results, setResults] = useState([]);
@@ -169,15 +169,15 @@ function App() {
       return;
     }
 
-    if (!Number.isFinite(count) || count < 1 || count > 30) {
-      setMessage('Choose a number of exercises between 1 and 30.');
+    const total = operations.reduce((sum, op) => sum + (counts[op] || 0), 0);
+    if (total < 1) {
+      setMessage('Set at least 1 exercise for a selected operation.');
       return;
     }
 
-    const generated = Array.from({ length: count }, () => {
-      const operation = pickRandom(operations);
-      return createExercise(operation, difficulty);
-    });
+    const generated = operations.flatMap((op) =>
+      Array.from({ length: counts[op] || 0 }, () => createExercise(op, difficulty))
+    );
 
     setExercises(generated);
     setAnswers({});
@@ -269,38 +269,33 @@ function App() {
             <form className="settings-panel" onSubmit={(event) => event.preventDefault()}>
               <fieldset>
                 <legend>Operations</legend>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={operations.includes('add')}
-                    onChange={() => toggleOperation('add')}
-                  />
-                  {' '}Addition (+)
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={operations.includes('sub')}
-                    onChange={() => toggleOperation('sub')}
-                  />
-                  {' '}Subtraction (-)
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={operations.includes('mul')}
-                    onChange={() => toggleOperation('mul')}
-                  />
-                  {' '}Multiplication (×)
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={operations.includes('div')}
-                    onChange={() => toggleOperation('div')}
-                  />
-                  {' '}Division (÷)
-                </label>
+                {['add', 'sub', 'mul', 'div'].map((op) => {
+                  const checked = operations.includes(op);
+                  return (
+                    <div className="op-row" key={op}>
+                      <label className="toggle">
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => toggleOperation(op)}
+                        />
+                        <span className="toggle-track" />
+                        <span className="toggle-label">{operationLabels[op]}</span>
+                      </label>
+                      <input
+                        type="number"
+                        className="op-count"
+                        min="0"
+                        max="10"
+                        disabled={!checked}
+                        value={counts[op]}
+                        onChange={(event) =>
+                          setCounts((prev) => ({ ...prev, [op]: Number(event.target.value) }))
+                        }
+                      />
+                    </div>
+                  );
+                })}
               </fieldset>
 
               <label htmlFor="difficulty">Difficulty</label>
@@ -313,16 +308,6 @@ function App() {
                 <option value="medium">Medium (Mid Primary)</option>
                 <option value="hard">Hard (Upper Primary)</option>
               </select>
-
-              <label htmlFor="count">Number of exercises</label>
-              <input
-                id="count"
-                type="number"
-                min="1"
-                max="30"
-                value={count}
-                onChange={(event) => setCount(Number(event.target.value))}
-              />
 
               <div className="actions">
                 <button type="button" onClick={generateExercises}>
