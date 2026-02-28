@@ -649,7 +649,6 @@ button:active {
 
   /* ── Operation groups ── */
   .written-group {
-    break-inside: avoid;
     margin-bottom: 0.55cm;
   }
 
@@ -661,6 +660,7 @@ button:active {
     color: #333;
     padding-bottom: 0.08cm;
     border-bottom: 0.5pt solid #bbb;
+    break-after: avoid;
   }
 
   /* ── Problem grid ── */
@@ -676,6 +676,7 @@ button:active {
     border-radius: 3pt;
     min-height: 3.4cm;
     padding: 0.55cm 0.35cm 0.4cm;
+    break-inside: avoid;
     display: flex;
     align-items: flex-start;
     justify-content: center;
