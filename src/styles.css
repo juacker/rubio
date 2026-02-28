@@ -1,0 +1,652 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f2ece2;
+  --bg-accent: #e7dbc8;
+  --surface: rgba(255, 252, 246, 0.86);
+  --surface-strong: #fffdf9;
+  --ink: #1f1a14;
+  --muted: #6b6255;
+  --line: #ded4c2;
+  --brand: #b65a2a;
+  --brand-deep: #92461f;
+  --secondary: #37505f;
+  --secondary-deep: #2a3e4a;
+  --ok: #1e7f46;
+  --bad: #a12f2f;
+  --shadow-soft: 0 14px 32px rgba(66, 44, 23, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(circle at 2% 2%, #f9f2e7 0%, transparent 22%),
+    radial-gradient(circle at 100% 100%, #ead9c0 0%, transparent 34%),
+    linear-gradient(155deg, var(--bg), var(--bg-accent));
+}
+
+.app-shell {
+  width: 100vw;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+}
+
+.sidebar {
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 250, 241, 0.85), rgba(243, 232, 218, 0.9));
+  padding: 1.2rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--brand-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+h2,
+h3 {
+  margin-top: 0;
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+h2 {
+  margin-bottom: 0.65rem;
+  font-size: 1.3rem;
+}
+
+h3 {
+  margin-bottom: 0.9rem;
+  font-size: 1.08rem;
+}
+
+.sidebar-nav {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+  border: 1px solid #d6cab4;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--ink);
+  padding: 0.72rem;
+  text-align: left;
+  box-shadow: none;
+  display: grid;
+  gap: 0.1rem;
+  cursor: default;
+}
+
+.sidebar .nav-item.active {
+  border-color: #c58157;
+  background: linear-gradient(180deg, #fef4e8, #f9e4cd);
+}
+
+.nav-label {
+  font-weight: 700;
+}
+
+.nav-hint {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.content-area {
+  padding: 1rem;
+  overflow: auto;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(2px);
+}
+
+.practice-workspace {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.workspace-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.message {
+  margin: 0;
+  color: var(--muted);
+}
+
+.score {
+  margin: 0;
+  font-weight: 700;
+  color: var(--brand-deep);
+}
+
+.print-header {
+  display: none;
+}
+
+.print-written-sheet {
+  display: none;
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 0.8rem;
+  align-items: start;
+}
+
+.settings-panel,
+.exercise-sheet {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.settings-panel {
+  position: sticky;
+  top: 1rem;
+  padding: 0.8rem;
+}
+
+.settings-panel fieldset {
+  margin: 0 0 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.settings-panel label,
+.settings-panel legend {
+  font-weight: 600;
+}
+
+.settings-panel legend {
+  color: var(--muted);
+}
+
+.settings-panel label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.settings-panel input[type='checkbox'] {
+  accent-color: var(--brand);
+}
+
+.settings-panel select,
+.settings-panel input[type='number'] {
+  width: 100%;
+  margin: 0.35rem 0 1rem;
+  padding: 0.62rem 0.74rem;
+  border-radius: 11px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  font: inherit;
+  color: inherit;
+}
+
+.settings-panel select:focus,
+.settings-panel input[type='number']:focus,
+.exercise-item input:focus {
+  outline: 2px solid rgba(182, 90, 42, 0.25);
+  outline-offset: 1px;
+  border-color: var(--brand);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.66rem 0.92rem;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  background: var(--brand);
+  color: #fff;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+  box-shadow: none;
+}
+
+button:hover {
+  background: var(--brand-deep);
+  border-color: rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: #f5f1e9;
+  color: #3f4a52;
+  border-color: #d7ccbb;
+}
+
+button.secondary:hover {
+  background: #eee7db;
+  border-color: #cabcaa;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.exercise-sheet {
+  padding: 0.8rem;
+  min-height: 420px;
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+#exercise-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.5rem 0.9rem;
+  align-content: start;
+}
+
+.exercise-item {
+  display: grid;
+  grid-template-columns: max-content 88px;
+  align-items: center;
+  justify-content: start;
+  column-gap: 0.35rem;
+  row-gap: 0.2rem;
+  padding: 0.22rem 0;
+}
+
+.exercise-item label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.exercise-item input {
+  width: 100%;
+  padding: 0.43rem 0.58rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font: inherit;
+}
+
+.result {
+  font-weight: 700;
+  min-height: 1.2em;
+  grid-column: 1 / -1;
+}
+
+.result.ok {
+  color: var(--ok);
+}
+
+.result.bad {
+  color: var(--bad);
+}
+
+.problem-number {
+  display: none;
+}
+
+.written-group {
+  margin-bottom: 1rem;
+}
+
+.written-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.55rem;
+}
+
+.written-problem {
+  padding: 0.35rem 0.45rem 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.68);
+  min-height: 96px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.stacked-layout {
+  margin-left: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.stack-line {
+  display: grid;
+  grid-template-columns: 1ch 1fr;
+  align-items: baseline;
+}
+
+.stack-op,
+.stack-op-placeholder {
+  display: inline-block;
+  width: 1ch;
+}
+
+.stack-line span:last-child {
+  justify-self: end;
+}
+
+.stack-answer-line {
+  border-top: 2px solid #000;
+  margin-top: 0.08rem;
+}
+
+.stack-answer-space {
+  height: 1.45rem;
+}
+
+.stack-partial-space {
+  height: 1.45rem;
+}
+
+.division-problem {
+  min-height: 118px;
+}
+
+.caja-layout {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.3cm;
+}
+
+.caja-dividend {
+  font-weight: 600;
+  line-height: 1;
+}
+
+.caja-box {
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+  padding: 0 0.4cm 0.1cm 0.25cm;
+}
+
+.caja-divisor {
+  font-weight: 600;
+  line-height: 1;
+}
+
+@media (max-width: 980px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.8rem;
+  }
+
+  .workspace-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-panel {
+    position: static;
+  }
+
+  #exercise-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  #exercise-list {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 1.2cm 1.5cm;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-family: 'Manrope', 'Segoe UI', sans-serif;
+    font-size: 11pt;
+  }
+
+  .app-shell {
+    display: block;
+    width: 100%;
+    min-height: 0;
+  }
+
+  .sidebar,
+  .settings-panel,
+  .message,
+  .score,
+  .result,
+  .workspace-header {
+    display: none !important;
+  }
+
+  .content-area {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .workspace-grid {
+    display: block;
+  }
+
+  .panel,
+  .exercise-sheet {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: #fff;
+    box-shadow: none;
+    min-height: 0;
+  }
+
+  /* ── Worksheet header ── */
+  .print-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2pt solid #000;
+    padding-bottom: 0.3cm;
+    margin-bottom: 0.6cm;
+  }
+
+  .print-title h1 {
+    margin: 0;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 22pt;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .print-subtitle {
+    margin: 0.12cm 0 0;
+    font-size: 8.5pt;
+    color: #666;
+    letter-spacing: 0.02em;
+  }
+
+  .print-fields {
+    text-align: right;
+    padding-bottom: 0.05cm;
+  }
+
+  .print-field {
+    margin: 0 0 0.2cm;
+    font-size: 10pt;
+    font-weight: 500;
+  }
+
+  .print-blank {
+    display: inline-block;
+    width: 5cm;
+    border-bottom: 1pt solid #000;
+    margin-left: 0.15cm;
+  }
+
+  .print-blank-short {
+    display: inline-block;
+    min-width: 3.5cm;
+    border-bottom: 1pt solid #000;
+    margin-left: 0.15cm;
+    font-weight: 400;
+    font-size: 9.5pt;
+  }
+
+  /* ── Hide screen exercises, show written sheet ── */
+  .exercise-sheet {
+    display: none;
+  }
+
+  .print-written-sheet {
+    display: block;
+  }
+
+  /* ── Problem number badge ── */
+  .problem-number {
+    display: block;
+    position: absolute;
+    top: 0.1cm;
+    left: 0.15cm;
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: #999;
+    line-height: 1;
+  }
+
+  /* ── Operation groups ── */
+  .written-group {
+    break-inside: avoid;
+    margin-bottom: 0.55cm;
+  }
+
+  .written-group h3 {
+    margin: 0 0 0.3cm;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 11pt;
+    font-weight: 600;
+    color: #333;
+    padding-bottom: 0.08cm;
+    border-bottom: 0.5pt solid #bbb;
+  }
+
+  /* ── Problem grid ── */
+  .written-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4cm;
+  }
+
+  .written-problem {
+    position: relative;
+    background: #fff;
+    border: 1pt solid #d0d0d0;
+    border-radius: 3pt;
+    min-height: 3.4cm;
+    padding: 0.55cm 0.35cm 0.4cm;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  /* ── Stacked add/sub/mul problems ── */
+  .stacked-layout {
+    font-size: 20pt;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.35;
+  }
+
+  .stack-op,
+  .stack-op-placeholder {
+    width: 1.2ch;
+  }
+
+  .stack-line {
+    grid-template-columns: 1.2ch 1fr;
+  }
+
+  .stack-answer-line {
+    border-top: 2pt solid #000;
+    margin-top: 0.08cm;
+  }
+
+  .stack-answer-space {
+    height: 1.2cm;
+  }
+
+  .stack-partial-space {
+    height: 1cm;
+  }
+
+  /* ── Division problems (caja) ── */
+  .op-div .written-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4cm;
+  }
+
+  .division-problem {
+    min-height: calc(3.4cm + var(--work-lines, 0) * 0.8cm);
+  }
+
+  .caja-layout {
+    font-size: 20pt;
+    gap: 0.35cm;
+  }
+
+  .caja-box {
+    border-left: 2pt solid #000;
+    border-bottom: 2pt solid #000;
+    padding: 0 0.5cm 0.12cm 0.3cm;
+  }
+}
