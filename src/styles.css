@@ -311,8 +311,45 @@ h3 {
 
 .actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
+  gap: 0.5rem;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.actions-aux {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 0.25rem;
+}
+
+.aux-sep {
+  width: 1px;
+  height: 0.9rem;
+  background: var(--line);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: none !important;
+  border: none !important;
+  color: var(--muted) !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  padding: 0.25rem 0.5rem !important;
+  cursor: pointer;
+  border-radius: 6px !important;
+}
+
+.icon-btn:hover {
+  color: var(--brand) !important;
+  background: rgba(182, 90, 42, 0.08) !important;
+  transform: none !important;
 }
 
 button {

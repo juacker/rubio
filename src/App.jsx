@@ -332,16 +332,20 @@ function App() {
 
               <div className="actions">
                 <button type="button" onClick={generateExercises}>
-                  Generate Exercises
+                  Generate
                 </button>
                 <button type="button" className="secondary" onClick={checkAnswers}>
-                  Check Answers
+                  Check
                 </button>
-                <button type="button" className="secondary" onClick={printWorksheet}>
-                  Print Worksheet
+              </div>
+              <div className="actions-aux">
+                <button type="button" className="icon-btn" title="Print worksheet" onClick={printWorksheet}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9V2h12v7" /><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" /><rect x="6" y="14" width="12" height="8" /></svg>
+                  <span>Print</span>
                 </button>
-                <button type="button" className="secondary" onClick={cleanUpWorksheet}>
-                  Clean Up
+                <button type="button" className="icon-btn" title="Clear answers" onClick={cleanUpWorksheet}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" /></svg>
+                  <span>Clear</span>
                 </button>
               </div>
             </form>
