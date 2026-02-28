@@ -351,33 +351,41 @@ function App() {
             </form>
 
             <section className="exercise-sheet">
-              <div className="exercise-header">
-                <h3>Exercises</h3>
-              </div>
-              <ol id="exercise-list">
-                {exercises.map((exercise, index) => {
-                  const result = results[index];
-                  return (
-                    <li className="exercise-item" key={`${exercise.text}-${index}`}>
-                      <label htmlFor={`answer-${index}`}>{exercise.text}</label>
-                      <input
-                        id={`answer-${index}`}
-                        type="number"
-                        inputMode="numeric"
-                        autoComplete="off"
-                        value={answers[index] ?? ''}
-                        onChange={(event) => {
-                          const value = event.target.value;
-                          setAnswers((prev) => ({ ...prev, [index]: value }));
-                        }}
-                      />
-                      <span className={`result ${result ? (result.isCorrect ? 'ok' : 'bad') : ''}`}>
-                        {result ? result.text : ''}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ol>
+              {writtenGroups.length === 0 && (
+                <div className="exercise-header">
+                  <h3>Exercises</h3>
+                </div>
+              )}
+              {writtenGroups.map((group) => (
+                <div className="exercise-group" key={group.operation}>
+                  <h3>{group.label}</h3>
+                  <ol className="exercise-list">
+                    {group.items.map((exercise) => {
+                      const globalIndex = exercise.number - 1;
+                      const result = results[globalIndex];
+                      return (
+                        <li className="exercise-item" key={`${exercise.text}-${globalIndex}`}>
+                          <label htmlFor={`answer-${globalIndex}`}>{exercise.text}</label>
+                          <input
+                            id={`answer-${globalIndex}`}
+                            type="number"
+                            inputMode="numeric"
+                            autoComplete="off"
+                            value={answers[globalIndex] ?? ''}
+                            onChange={(event) => {
+                              const value = event.target.value;
+                              setAnswers((prev) => ({ ...prev, [globalIndex]: value }));
+                            }}
+                          />
+                          <span className={`result ${result ? (result.isCorrect ? 'ok' : 'bad') : ''}`}>
+                            {result ? result.text : ''}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+              ))}
             </section>
           </div>
 
