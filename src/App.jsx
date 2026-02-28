@@ -175,16 +175,37 @@ function App() {
       return;
     }
 
-    const generated = operations.flatMap((op) =>
-      Array.from({ length: counts[op] || 0 }, () => createExercise(op, difficulty))
-    );
+    const seen = new Set();
+    const capped = [];
+    const generated = operations.flatMap((op) => {
+      const items = [];
+      const target = counts[op] || 0;
+      let attempts = 0;
+      while (items.length < target && attempts < target * 20) {
+        attempts += 1;
+        const exercise = createExercise(op, difficulty);
+        const key = `${op}:${exercise.left}:${exercise.right}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          items.push(exercise);
+        }
+      }
+      if (items.length < target) {
+        capped.push(`${operationLabels[op]}: ${items.length}/${target}`);
+      }
+      return items;
+    });
 
     setExercises(generated);
     setAnswers({});
     setResults(Array.from({ length: generated.length }, () => null));
     setScore('');
     setLastSettings({ operations: [...operations], difficulty });
-    setMessage('Solve the exercises, then click Check Answers.');
+    if (capped.length > 0) {
+      setMessage(`Some operations have limited unique combinations (${capped.join(', ')}). Try a harder difficulty for more.`);
+    } else {
+      setMessage('Solve the exercises, then click Check Answers.');
+    }
   }
 
   function checkAnswers() {
