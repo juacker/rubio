@@ -2,6 +2,8 @@
 
 Math practice worksheets for primary school kids. Generate exercises, solve them on screen, or print clean worksheets for pencil-and-paper practice.
 
+**Try it live:** https://juacker.github.io/rubio/
+
 ![Screen view](docs/screen.png)
 
 ## What it does
